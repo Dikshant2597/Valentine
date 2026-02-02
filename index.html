@@ -13,7 +13,6 @@
     font-family: system-ui, sans-serif;
     background: radial-gradient(circle at top, #fff0f6, #ffd6e7);
     text-align: center;
-    color: #111;
   }
 
   section {
@@ -147,61 +146,44 @@
   const birthday = document.getElementById("birthday");
   const countdown = document.getElementById("countdown");
 
-  // NO runs away gently
-  zone.addEventListener("mousemove", () => {
-    const rect = zone.getBoundingClientRect();
-    noBtn.style.left = Math.random() * (rect.width - 100) + "px";
-    noBtn.style.top = Math.random() * (rect.height - 50) + "px";
-  });
-
-  // CONFETTI
+  /* CONFETTI */
   const confettiInstance = confetti.create(document.body, { resize: true });
   const boom = () => confettiInstance({ particleCount: 160, spread: 120, origin: { y: 0.6 } });
 
-  // 🎵 MUSIC (GENERATED)
-  const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-  let romanticOsc, birthdayOsc;
+  /* NO BUTTON LOGIC */
+  let escapeCount = 0;
+  let alertShown = false;
 
-  function playRomantic() {
-    romanticOsc = audioCtx.createOscillator();
-    romanticOsc.frequency.value = 220; // warm tone
-    romanticOsc.type = "sine";
+  zone.addEventListener("mousemove", e => {
+    const b = noBtn.getBoundingClientRect();
+    const d = Math.hypot(
+      e.clientX - (b.left + b.width / 2),
+      e.clientY - (b.top + b.height / 2)
+    );
 
-    const gain = audioCtx.createGain();
-    gain.gain.value = 0.04;
+    if (d < 120) {
+      const rect = zone.getBoundingClientRect();
+      noBtn.style.left = Math.random() * (rect.width - 100) + "px";
+      noBtn.style.top = Math.random() * (rect.height - 50) + "px";
 
-    romanticOsc.connect(gain).connect(audioCtx.destination);
-    romanticOsc.start();
-  }
+      escapeCount++;
+      if (escapeCount >= 4 && !alertShown) {
+        alertShown = true;
+        setTimeout(() => {
+          alert("Haha 😌 there’s no escape from me.\nAll you can do now is press YES 💕");
+        }, 200);
+      }
+    }
+  });
 
-  function stopRomantic() {
-    if (romanticOsc) romanticOsc.stop();
-  }
-
-  function playBirthday() {
-    birthdayOsc = audioCtx.createOscillator();
-    birthdayOsc.frequency.value = 440;
-    birthdayOsc.type = "triangle";
-
-    const gain = audioCtx.createGain();
-    gain.gain.value = 0.08;
-
-    birthdayOsc.connect(gain).connect(audioCtx.destination);
-    birthdayOsc.start();
-
-    setTimeout(() => birthdayOsc.stop(), 1500);
-  }
-
-  // FLOW
-  yesBtn.addEventListener("click", async () => {
-    await audioCtx.resume();
-    playRomantic();
+  /* YES FLOW */
+  yesBtn.addEventListener("click", () => {
     boom();
 
     setTimeout(() => {
       memories.classList.remove("hidden");
       memories.scrollIntoView({ behavior: "smooth" });
-    }, 2000);
+    }, 1500);
 
     setTimeout(() => {
       countdownSection.classList.remove("hidden");
@@ -214,8 +196,6 @@
         countdown.textContent = steps[i++];
         if (i === steps.length) {
           clearInterval(interval);
-          stopRomantic();
-          playBirthday();
           boom();
 
           setTimeout(() => {
@@ -224,8 +204,7 @@
           }, 1500);
         }
       }, 1500);
-
-    }, 7000);
+    }, 6000);
   });
 </script>
 
