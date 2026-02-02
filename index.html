@@ -75,6 +75,10 @@
 
 <body>
 
+<!-- MUSIC -->
+<audio id="romanticMusic" src="music/romantic.mp3" loop></audio>
+<audio id="birthdayMusic" src="music/birthday.mp3"></audio>
+
 <!-- SECTION 1 -->
 <section>
   <div class="card">
@@ -141,16 +145,18 @@
   const noBtn = document.getElementById("noBtn");
   const zone = document.getElementById("zone");
 
+  const romanticMusic = document.getElementById("romanticMusic");
+  const birthdayMusic = document.getElementById("birthdayMusic");
+
   const memories = document.getElementById("memories");
   const countdownSection = document.getElementById("countdownSection");
   const birthday = document.getElementById("birthday");
   const countdown = document.getElementById("countdown");
 
-  /* CONFETTI */
   const confettiInstance = confetti.create(document.body, { resize: true });
   const boom = () => confettiInstance({ particleCount: 160, spread: 120, origin: { y: 0.6 } });
 
-  /* NO BUTTON LOGIC */
+  // NO button logic
   let escapeCount = 0;
   let alertShown = false;
 
@@ -169,21 +175,20 @@
       escapeCount++;
       if (escapeCount >= 4 && !alertShown) {
         alertShown = true;
-        setTimeout(() => {
-          alert("Haha 😌 there’s no escape from me.\nAll you can do now is press YES 💕");
-        }, 200);
+        alert("Haha 😌 there’s no escape from me.\nAll you can do now is press YES 💕");
       }
     }
   });
 
-  /* YES FLOW */
+  // YES FLOW
   yesBtn.addEventListener("click", () => {
+    romanticMusic.play();
     boom();
 
     setTimeout(() => {
       memories.classList.remove("hidden");
       memories.scrollIntoView({ behavior: "smooth" });
-    }, 1500);
+    }, 2000);
 
     setTimeout(() => {
       countdownSection.classList.remove("hidden");
@@ -196,6 +201,8 @@
         countdown.textContent = steps[i++];
         if (i === steps.length) {
           clearInterval(interval);
+          romanticMusic.pause();
+          birthdayMusic.play();
           boom();
 
           setTimeout(() => {
@@ -204,7 +211,7 @@
           }, 1500);
         }
       }, 1500);
-    }, 6000);
+    }, 7000);
   });
 </script>
 
