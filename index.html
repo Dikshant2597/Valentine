@@ -1,115 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>For You ❤️</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>For You ❤️</title>
 
-  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
 
-  <style>
-    :root {
-      --pink1: #ffd6e7;
-      --pink2: #fff0f6;
-      --accent: #ff3b7a;
-    }
+<style>
+  body {
+    margin: 0;
+    font-family: system-ui, sans-serif;
+    background: radial-gradient(circle at top, #fff0f6, #ffd6e7);
+    text-align: center;
+    color: #111;
+  }
 
-    * { box-sizing: border-box; }
+  section {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
 
-    body {
-      margin: 0;
-      font-family: system-ui, sans-serif;
-      background: radial-gradient(circle at top, var(--pink2), var(--pink1));
-      color: #111;
-    }
+  .card {
+    background: rgba(255,255,255,.92);
+    padding: 32px;
+    border-radius: 26px;
+    max-width: 760px;
+    width: 100%;
+    box-shadow: 0 18px 50px rgba(0,0,0,.15);
+  }
 
-    section {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 24px;
-      text-align: center;
-    }
+  button {
+    padding: 16px 28px;
+    border-radius: 999px;
+    border: none;
+    font-size: 18px;
+    font-weight: 800;
+    cursor: pointer;
+  }
 
-    .card {
-      background: rgba(255,255,255,.9);
-      border-radius: 26px;
-      padding: 32px;
-      max-width: 760px;
-      width: 100%;
-      box-shadow: 0 18px 50px rgba(0,0,0,.15);
-    }
+  #yesBtn { background: #ff3b7a; color: white; }
+  #noBtn  { background: #e5e7eb; position: absolute; }
 
-    h1, h2 { margin: 12px 0; }
+  .button-zone {
+    position: relative;
+    height: 160px;
+    margin-top: 30px;
+  }
 
-    button {
-      padding: 16px 28px;
-      border-radius: 999px;
-      border: none;
-      font-size: 18px;
-      font-weight: 800;
-      cursor: pointer;
-      box-shadow: 0 10px 20px rgba(0,0,0,.15);
-      transition: transform .25s ease;
-    }
+  .hidden { display: none; }
 
-    #yesBtn {
-      background: var(--accent);
-      color: white;
-    }
+  .gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px,1fr));
+    gap: 16px;
+    margin: 24px 0;
+  }
 
-    #noBtn {
-      background: #e5e7eb;
-      color: #111;
-      position: absolute;
-    }
+  .gallery img {
+    width: 100%;
+    border-radius: 16px;
+    box-shadow: 0 8px 20px rgba(0,0,0,.15);
+  }
 
-    .button-zone {
-      position: relative;
-      height: 160px;
-      margin-top: 28px;
-    }
-
-    /* FIX 1: Proper spacing */
-    #yesBtn { left: 30%; position: absolute; }
-    #noBtn  { left: 60%; position: absolute; }
-
-    .hidden { display: none; }
-
-    /* MEMORY LANE */
-    .gallery {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-      gap: 16px;
-      margin: 22px 0;
-    }
-
-    .gallery img {
-      width: 100%;
-      border-radius: 16px;
-      box-shadow: 0 8px 20px rgba(0,0,0,.15);
-      transform: rotate(-2deg);
-    }
-
-    .gallery img:nth-child(even) {
-      transform: rotate(2deg);
-    }
-
-    #confettiCanvas {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 9999;
-    }
-
-    p { line-height: 1.6; }
-  </style>
+  #countdown {
+    font-size: 64px;
+    font-weight: 800;
+    margin: 20px 0;
+  }
+</style>
 </head>
 
 <body>
-
-<canvas id="confettiCanvas"></canvas>
 
 <!-- SECTION 1 -->
 <section>
@@ -121,13 +86,11 @@
       <button id="noBtn">No</button>
     </div>
 
-    <p style="font-size:13px; opacity:.7;">
-      (No is feeling shy 😈)
-    </p>
+    <p style="opacity:.7">(No is feeling shy 😈)</p>
   </div>
 </section>
 
-<!-- SECTION 2 -->
+<!-- MEMORY -->
 <section id="memories" class="hidden">
   <div class="card">
     <h2>Our Memory Lane 🤍</h2>
@@ -139,17 +102,9 @@
     </p>
 
     <p>
-      I love doing everything with you — eating together,
-      roaming around, laughing at random things,
-      and the best part… <strong>mana-o-ing you</strong> 😌💖
-    </p>
-
-    <p>
-      I love your smile, your eyes, your happiness —
-      honestly, I just love <em>you</em>.
-      Kabhi kabhi chhoti si galti ho jaati hai,
-      but I’m always right here,
-      choosing you and choosing us.
+      I love doing everything with you — eating,
+      roaming, laughing, and especially
+      <strong>mana-o-ing you</strong> 😌💖
     </p>
 
     <div class="gallery">
@@ -161,17 +116,23 @@
   </div>
 </section>
 
-<!-- SECTION 3 -->
+<!-- COUNTDOWN -->
+<section id="countdownSection" class="hidden">
+  <div class="card">
+    <h2>Someone special is turning… 🎂</h2>
+    <div id="countdown">24</div>
+  </div>
+</section>
+
+<!-- BIRTHDAY -->
 <section id="birthday" class="hidden">
   <div class="card">
-    <h2>Happy 25th Birthday, baby 🎂✨</h2>
-
+    <h1>Happy 25th Birthday, baby 🎉✨</h1>
     <p>
       I hope this year brings you calm days,
       loud laughs, warm hugs,
-      and everything your heart quietly wishes for.
+      and everything your heart wishes for.
     </p>
-
     <p style="margin-top:20px;">Love you, always 🤍</p>
   </div>
 </section>
@@ -182,59 +143,89 @@
   const zone = document.getElementById("zone");
 
   const memories = document.getElementById("memories");
+  const countdownSection = document.getElementById("countdownSection");
   const birthday = document.getElementById("birthday");
+  const countdown = document.getElementById("countdown");
 
-  let escapeCount = 0;
-  let alertShown = false;
-
-  // FIX 2: Gentle NO movement
-  zone.addEventListener("mousemove", e => {
-    const b = noBtn.getBoundingClientRect();
-    const d = Math.hypot(
-      e.clientX - (b.left + b.width / 2),
-      e.clientY - (b.top + b.height / 2)
-    );
-
-    if (d < 120) {
-      const rect = zone.getBoundingClientRect();
-      noBtn.style.left = Math.random() * (rect.width - 100) + "px";
-      noBtn.style.top = Math.random() * (rect.height - 50) + "px";
-
-      escapeCount++;
-
-      if (escapeCount >= 4 && !alertShown) {
-        alertShown = true;
-        setTimeout(() => {
-          alert("Haha 😌 there’s no escape from me.\nAll you can do now is press YES 💕");
-        }, 300);
-      }
-    }
+  // NO runs away gently
+  zone.addEventListener("mousemove", () => {
+    const rect = zone.getBoundingClientRect();
+    noBtn.style.left = Math.random() * (rect.width - 100) + "px";
+    noBtn.style.top = Math.random() * (rect.height - 50) + "px";
   });
 
   // CONFETTI
-  const confettiInstance = confetti.create(
-    document.getElementById("confettiCanvas"),
-    { resize: true }
-  );
+  const confettiInstance = confetti.create(document.body, { resize: true });
+  const boom = () => confettiInstance({ particleCount: 160, spread: 120, origin: { y: 0.6 } });
 
-  function boom() {
-    confettiInstance({ particleCount: 160, spread: 120, origin: { y: 0.6 } });
+  // 🎵 MUSIC (GENERATED)
+  const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  let romanticOsc, birthdayOsc;
+
+  function playRomantic() {
+    romanticOsc = audioCtx.createOscillator();
+    romanticOsc.frequency.value = 220; // warm tone
+    romanticOsc.type = "sine";
+
+    const gain = audioCtx.createGain();
+    gain.gain.value = 0.04;
+
+    romanticOsc.connect(gain).connect(audioCtx.destination);
+    romanticOsc.start();
   }
 
-  // FIX 3: Slower, cinematic flow
-  yesBtn.addEventListener("click", () => {
+  function stopRomantic() {
+    if (romanticOsc) romanticOsc.stop();
+  }
+
+  function playBirthday() {
+    birthdayOsc = audioCtx.createOscillator();
+    birthdayOsc.frequency.value = 440;
+    birthdayOsc.type = "triangle";
+
+    const gain = audioCtx.createGain();
+    gain.gain.value = 0.08;
+
+    birthdayOsc.connect(gain).connect(audioCtx.destination);
+    birthdayOsc.start();
+
+    setTimeout(() => birthdayOsc.stop(), 1500);
+  }
+
+  // FLOW
+  yesBtn.addEventListener("click", async () => {
+    await audioCtx.resume();
+    playRomantic();
     boom();
 
     setTimeout(() => {
       memories.classList.remove("hidden");
       memories.scrollIntoView({ behavior: "smooth" });
-    }, 1500);
+    }, 2000);
 
     setTimeout(() => {
-      boom();
-      birthday.classList.remove("hidden");
-      birthday.scrollIntoView({ behavior: "smooth" });
-    }, 5500);
+      countdownSection.classList.remove("hidden");
+      countdownSection.scrollIntoView({ behavior: "smooth" });
+
+      const steps = ["24", "24.5", "25 🎉"];
+      let i = 0;
+
+      const interval = setInterval(() => {
+        countdown.textContent = steps[i++];
+        if (i === steps.length) {
+          clearInterval(interval);
+          stopRomantic();
+          playBirthday();
+          boom();
+
+          setTimeout(() => {
+            birthday.classList.remove("hidden");
+            birthday.scrollIntoView({ behavior: "smooth" });
+          }, 1500);
+        }
+      }, 1500);
+
+    }, 7000);
   });
 </script>
 
